@@ -1,6 +1,14 @@
 # Byron-Encoder
 MicroPython (Raspberry Pi Pico) routine to encode Elro DB286A 
 
+Even though - the codes needed to trigger a door bell are 32 bits - it appears that the bottom 16 bits are one of two constants - 0x7A2C and 0x2A6C. 
+
+I've also spotted that there are two possible codes for each doorbell (0xXXXX7A2C and 0xYYYY2A6C) which alternate 
+after every bell press. 
+
+
+
+
 
 ```
 import time
@@ -53,6 +61,7 @@ def elro_db286A():
 
 
 TX_433_PIN = 16  # FS1000A Data Pin
+# BELL_ID = 0x26587A2C
 BELL_ID = 0x6edd2a6c  #Bell ID! (Obtained from running rtl_433 -R 62 and pressing the bell)
 CLOCK = 64000
 
