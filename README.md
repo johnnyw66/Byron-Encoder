@@ -1,4 +1,4 @@
-# Byron-Encoder
+# Byron-Encoder Pico and ESP32C versions.
 MicroPython (Raspberry Pi Pico) routine to encode Elro DB286A 
 
 Even though - the codes needed to trigger a door bell are 32 bits - it appears that the bottom 16 bits are one of two constants - 0x7A2C and 0x2A6C. 
@@ -88,5 +88,82 @@ while True:
     ring(BELL_ID)
     time.sleep(5)
     
+
+```
+
+Example ESP32C source using RMT module
+
+```
+from esp32 import RMT
+from machine import Pin
+import time
+
+
+FS1000A_PIN = 2	# ESP32's GPIO DATA PIN CONNECTED TO FS1000A.
+
+# RMT clock constants - probably only needs looking out if for some day in the future
+# these can be changed.
+CLOCK_DIV = 80
+SOURCE_FREQ = 80_000_000
+
+# Example Elro timings (change to your actual protocol):
+# Assume each bit is 496 µs short or 1488 µs long, gap between 32-bit ID is 6980 us
+P_LONG_US = 1488
+P_SHORT_US = 496
+GAP_US = 6980
+
+tick_s = CLOCK_DIV / SOURCE_FREQ  # tick duration in seconds
+
+def us_to_ticks(us: float) -> int:
+    """Convert microseconds to RMT ticks."""
+    return round(us * 1e-6 / tick_s)
+
+# Configure RMT on GPIO2 with 1 µs resolution
+rmt = RMT(0, pin=Pin(FS1000A_PIN, Pin.OUT), clock_div=CLOCK_DIV)
+
+def elro_send(code: int, repeats: int = 16) -> None:
+    """Send a 32-bit Elro code using RMT."""
+    pulses = []
+    
+    # Convert uSec timings to clock ticks - Note for the default RMT we should
+    # find that the default 80Mhz clock and CLOCK_DIV of 8 will make calling
+    # the 'us_to_ticks' function, rather moot.
+    T_LONG = us_to_ticks(P_LONG_US)
+    T_SHORT = us_to_ticks(P_SHORT_US)
+    GAP = us_to_ticks(GAP_US)
+    
+    #print(T_LONG, T_SHORT, GAP)
+    
+    bit0 = [T_LONG, T_SHORT]
+    bit1 = [T_SHORT, T_LONG]
+
+    # Sync bit (33rd bit, but for the last and first)
+    
+    pulses.extend([T_SHORT,GAP])
+
+    # 32-bit ID + 1 tail bit + GAP bit
+    for i in range(32):
+        bit = (code >> (31 - i)) & 1
+
+        if bit:
+            pulses.extend(bit1)  
+        else:
+            pulses.extend(bit0)
+            
+    #print(pulses)
+
+    for _ in range(repeats):
+        rmt.write_pulses(pulses)
+        rmt.wait_done()
+        #print(_)
+
+# Example usage
+ID = 0x6EDD2A6C
+ID = 0x26587A2C
+#ID = 0x2E1E7A2C
+while True:
+ elro_send(ID)
+ time.sleep(10)
+ 
 
 ```
