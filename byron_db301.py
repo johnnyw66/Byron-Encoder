@@ -83,7 +83,7 @@ def seek_code(ringer, lower_bits, sleep_time = 0.5, start = 0xFFFF):
   
 
 
-ringer = bell_ringer_generator(clock=CLOCK_FREQ, repeats=4)
+ringer = bell_ringer_generator(clock=CLOCK_FREQ, repeats=8)
 
 seek = False  # Annoy
 if not seek:
