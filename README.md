@@ -221,7 +221,7 @@ def us_to_ticks(us: float) -> int:
 rmt = RMT(0, pin=Pin(FS1000A_PIN, Pin.OUT), clock_div=CLOCK_DIV)
 
 def princeton_send(code: int, repeats: int = 8) -> None:
-    """Send a 32-bit Princeton code using RMT."""
+    """Send a 24-bit Princeton code using RMT."""
     pulses = []
     
     # Convert uSec timings to clock ticks - Note for the default RMT we should
