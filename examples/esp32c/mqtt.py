@@ -1,6 +1,16 @@
 """
  ESP32C MicroPython with OLED display - Subscribe to MQTT Broker (topic bellring/HEXID) and ring bells
  HEXID is a 32 or 24 bit string. eg. 0xAABBCCDD 0xAABBCC
+ Example secret.py (which includes Broker and WiFi credentials)
+
+WIFI_SSID = 'MYWIFI-SSID'
+WIFI_PASS = 'MYWIFI-PASSWORD'
+
+MQTT_BROKER = 'example-mqtt.com'
+MQTT_PORT = 1883
+MQTT_USER = 'MQTT_USER'
+MQTT_PASS = 'MQTT_PASSWORD'
+
 """
 
 import network
