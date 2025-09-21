@@ -34,9 +34,9 @@ BYRON_BELL_ID_2 = 0x6edd2a6c
 TEK_ID_1 = 0x8e00f8
 INITIAL_TEST = False
 
-BELLS = [{"type": "ELRO", "id":BYRON_BELL_ID_1},
-         {"type": "ELRO", "id":BYRON_BELL_ID_2},
-         {"type": "PRINCETON", "id":TEK_ID_1},
+BELLS = [{"type": "elro", "id":BYRON_BELL_ID_1},
+         {"type": "elro", "id":BYRON_BELL_ID_2},
+         {"type": "princeton", "id":TEK_ID_1},
         ]
 
 # Define I2C interface using your specified GPIOs
@@ -54,9 +54,19 @@ print("I2C devices found:", i2c.scan())  # Should return [0x3C] or similar
 oled = ssd1306.SSD1306_I2C(128, 48, i2c)
 
 # MQTT topic wildcard
-TOPIC_WILDCARD = b'bellring/#'
+TOPIC_WILDCARD = b'bell/#'
 
 CLIENT_ID = b'esp32_' + ubinascii.hexlify(machine.unique_id())
+
+def upsert_entry(table, bell_id: int, bell_type: str):
+    """Insert or update entry by unique 'id'."""
+    for i, entry in enumerate(table):
+        if entry["id"] == bell_id:
+            table[i] = {"id": bell_id, "type": bell_type}  # update in place
+            break
+    else:
+        table.append({"id": bell_id, "type": bell_type})  # not found → add new
+
 
 def waiting_for_bell():
     oled.fill(0)
@@ -184,33 +194,42 @@ def connect_wifi():
     print('Wi-Fi connected:', wlan.ifconfig())
     return wlan
 
+
 # ===== MQTT =====
 def mqtt_callback(topic, msg):
     topic_str = topic.decode()
     print('Received topic:', topic_str, '->', msg)
-
     # Extract BELLID from topic
     parts = topic_str.split('/')
-    if len(parts) >= 2:
-        bell_id_hex_str = parts[1]  # assumes topic format bellring/BELLID
-        print('BELLID:', bell_id_hex_str)
-        bell_id = int(bell_id_hex_str,16) & 0xFFFFFFFF
+
+    main_topic = parts[0] if len(parts) > 0 else None
+    hex_str = parts[1] if len(parts) >= 2 else None
+    bell_type = parts[2].lower() if len(parts) >= 3 else None
+    
+    print("MAIN TOPIC ", main_topic)
+    print("BELL HEXSTR", hex_str)
+    print("BELL TYPE", bell_type)
+    func =  princeton_send if 'princeton' in bell_type else elro_send if 'elro' in bell_type else None
+    
+          
+    if (func):
+
+
+        print('BELLID:', hex_str)
+        bell_id = int(hex_str,16) & 0xFFFFFFFF
+
+        upsert_entry(BELLS, bell_id, bell_type)
+        print("LENGTH OF BELLS",len(BELLS))
 
         oled.fill(0)
-        # Write text
+            # Write text
         oled.text("RING BELL", 28, 8)
-        oled.text(bell_id_hex_str, 28, 16)
+        oled.text(hex_str, 28, 16)
         oled.show()
-        
-        bells = [bell for bell in BELLS if bell_id == bell["id"]]
-        print(bells)        
-        for _ in bells:
-            bell_id = _['id']
-            func =  princeton_send if 'PRINCETON' in _['type'] else elro_send if 'ELRO' in _['type'] else None
-            if (func):
-                func(bell_id)
-                
-        waiting_for_bell()
+            
+        func(bell_id)
+                    
+    waiting_for_bell()
         
         
         
@@ -220,18 +239,19 @@ def mqtt_connect():
                         user=MQTT_USER, password=MQTT_PASS, keepalive=60)
     client.set_callback(mqtt_callback)
     client.connect()
-    client.subscribe(TOPIC_WILDCARD)
-    print('Subscribed to', TOPIC_WILDCARD)
+    client.subscribe(b"bell/#")
+    print("Subscribe to bell/#")
+    
     return client
 
 def ring_bells():
     for bell in BELLS:
         bell_id = bell["id"]
-        bell_type = bell["type"]
+        bell_type = bell["type"].lower()
         print("RING ", hex(bell_id), bell_type)
-        if ("ELRO" in bell_type):
+        if ("elro" in bell_type):
             elro_send(bell_id)
-        if ("PRINCETON" in bell_type):
+        if ("princeton" in bell_type):
             princeton_send(bell_id)
             
         time.sleep(0.5)
