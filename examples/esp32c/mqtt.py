@@ -32,11 +32,13 @@ from secret import MQTT_PASS
 BYRON_BELL_ID_1 = 0x26587A2C
 BYRON_BELL_ID_2 = 0x6edd2a6c
 TEK_ID_1 = 0x8e00f8
+TEK_ID_2 = 0x5514c8
 INITIAL_TEST = False
 
 BELLS = [{"type": "elro", "id":BYRON_BELL_ID_1},
          {"type": "elro", "id":BYRON_BELL_ID_2},
          {"type": "princeton", "id":TEK_ID_1},
+         {"type": "princeton", "id":TEK_ID_2},
         ]
 
 # Define I2C interface using your specified GPIOs
