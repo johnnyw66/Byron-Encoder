@@ -31,7 +31,7 @@ Connect your hardware components to the ESP32-C3 development board according to 
 | Component | ESP32 Pin  | Description |
 | :--- | :---: | ---: |
 | FS1000A ATAD| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
-| FS1000A Vcc| +5v	'V5'| It is OK to drive this at 5v |
+| FS1000A VCC| +5v	'V5'| It is OK to drive this at 5v |
 | FS1000A GND| GND ESP32 'GD'| Ground |
 | Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
 
