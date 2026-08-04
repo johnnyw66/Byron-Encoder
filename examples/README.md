@@ -1,10 +1,10 @@
 ## ESP32-C3 MQTT to RF (433MHz) Gateway
 
 ![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
+<img src="../images/doorbell1.png" alt="Generic Wireless Doorbell, Waterproof Plug-in Door Chime Kit" width="300">
+<img src="../images/doorbell2.png" alt="SURFOU Wireless Doorbell," width="300">
+<img src="../images/doorbell3.png" alt="Byron Wireless Portable Doorbell" width="300">
 
-![Example Bell]../images/doorbell1.png)
-![Example Bell](../images/doorbell2.png)
-![Example Bell](../images/doorbell3.png)
 
 A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button. 
 
@@ -52,7 +52,14 @@ I squashed my antenna so that the gateway could fit inside a case - causing some
 
 Create a file named **secret.py** on your ESP32-C3 running MicroPython containing your network credentials and MQTT broker settings:
 
+
+To configure the **mqtt.py** script for your specific wireless devices, you will need to update the payload values with the exact raw protocol timings and data codes captured by your Flipper Zero. Open the script and locate the transmission definition arrays, then substitute the default values with your captured parameters—typically including the protocol ID, pulse length, and the unique binary or hexadecimal code corresponding to your specific doorbell or switch.
+
+(Note: Ensure you match the exact sub-GHz modulation (usually ASK/OOK at 433.92 MHz) and bit length reported by the Flipper's raw analysis tool to guarantee reliable triggering over the air.)
 Python
+
+
+
 ```
 WIFI_SSID = 'YOUR_WIFI_SSID'
 WIFI_PASS = 'YOUR_WIFI_PASSWORD'
