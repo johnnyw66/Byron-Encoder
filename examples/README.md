@@ -2,7 +2,9 @@
 
 ![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
 
-![MQTT Gateway Board](../images/bell1.jpg)
+![Example Bell]../images/doorbell1.png)
+![Example Bell](../images/doorbell2.png)
+![Example Bell](../images/doorbell3.png)
 
 A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button. 
 
