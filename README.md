@@ -1,5 +1,5 @@
 # Byron-Encoder Pico and ESP32C versions.
-[Link Text](./examples/README.md)
+[Link Text](./examples/README.md#gateway)
 
 ## Byron-Encoder Pico and ESP32C versions.
 MicroPython (Raspberry Pi Pico) routine to encode Elro DB286A 32-bit.
