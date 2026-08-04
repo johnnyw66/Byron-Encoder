@@ -52,14 +52,6 @@ I squashed my antenna so that the gateway could fit inside a case - causing some
 
 Create a file named **secret.py** on your ESP32-C3 running MicroPython containing your network credentials and MQTT broker settings:
 
-
-To configure the **mqtt.py** script for your specific wireless devices, you will need to update the payload values with the exact raw protocol timings and data codes captured by your Flipper Zero. Open the script and locate the transmission definition arrays, then substitute the default values with your captured parameters—typically including the protocol ID, pulse length, and the unique binary or hexadecimal code corresponding to your specific doorbell or switch.
-
-(Note: Ensure you match the exact sub-GHz modulation (usually ASK/OOK at 433.92 MHz) and bit length reported by the Flipper's raw analysis tool to guarantee reliable triggering over the air.)
-Python
-
-
-
 ```
 WIFI_SSID = 'YOUR_WIFI_SSID'
 WIFI_PASS = 'YOUR_WIFI_PASSWORD'
@@ -69,6 +61,33 @@ MQTT_PORT = 1883
 MQTT_USER = 'YOUR_MQTT_USER'
 MQTT_PASS = 'YOUR_MQTT_PASSWORD'
 ```
+
+
+To configure the **mqtt.py** script for your specific wireless devices, you will need to update the payload values with the exact raw protocol timings and data codes captured by your **Flipper Zero**. Open the script and locate the transmission definition arrays, then substitute the default values with your captured parameters—typically including the protocol ID, pulse length, and the unique binary or hexadecimal code corresponding to your specific doorbell or switch.
+
+You can see the portion of code, below - where I set the 'BELLS' array - (used by the Test button)  - with their protocols and their associated IDs.
+In theory - because these codes are effectively only 16bits (the other 16 bits are generic for each manufacture) - you could generate a brute force script and run through the 65,000 odd codes and wait for your particular bell to ring. I ran such a script and was woken up at 4 o'clock in the morning!
+
+
+```
+BYRON_BELL_ID_1 = 0x26587A2C
+BYRON_BELL_ID_2 = 0x6edd2a6c
+TEK_ID_1 = 0x8e00f8
+TEK_ID_2 = 0x5514c8
+INITIAL_TEST = False
+
+BELLS = [{"type": "elro", "id":BYRON_BELL_ID_1},
+         {"type": "elro", "id":BYRON_BELL_ID_2},
+         {"type": "princeton", "id":TEK_ID_1},
+         {"type": "princeton", "id":TEK_ID_2},
+        ]
+
+```
+
+(Note: Ensure you match the exact sub-GHz modulation (usually ASK/OOK at 433.92 MHz) and bit length reported by the Flipper's raw analysis tool to guarantee reliable triggering over the air.)
+Python
+
+
 
 Upload the main scripts **mqtt.py** alongside your **secret.py** and the required MicroPython SSD1306 driver library (**sdd1306.py**) if required. 
 
@@ -81,7 +100,11 @@ import mqtt
 Alternatively, you could just copy the contents of **mqtt.py** into main.py
 
 ## Node-RED Integration
+
+The Protocol and ID for your paricular Bell/Switch is embedded in the MQTT topic. You'll need to change this to match your own hardware.
+
 You can easily control the gateway from Node-RED by publishing payloads to the topic structure expected by the firmware: bell/{HEXID}/{type} (where {type} is either elro or princeton).
+
 
 ## Example Node-RED Flow
 
@@ -765,5 +788,7 @@ node.warn(`Ring Bell ${msg.topic}`) ;
 return msg;
 
 ```
+
+
 
 
