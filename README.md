@@ -1,5 +1,9 @@
 # Byron-Encoder Pico and ESP32C versions.
+[Link Text](./examples/README.md)
+
+## Byron-Encoder Pico and ESP32C versions.
 MicroPython (Raspberry Pi Pico) routine to encode Elro DB286A 32-bit.
+
 
 Even though - the codes needed to trigger a door bell are 32 bits - it appears that the bottom 16 bits are one of two constants - 0x7A2C and 0x2A6C. 
 
