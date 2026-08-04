@@ -1,6 +1,9 @@
 
 ## MQTT to RF Gateway (Ring your Doorbells/Set your RF Switches using MQTT)
 
+![MQTT Gateway Board](./images/mqtt_bell_gateway.png)
+
+
 If you want to bridge your home automation broker to wireless 433 MHz switches and doorbells, check out the complete [MQTT to RF Gateway Documentation](./examples/README.md#gateway). 
 
 This guide covers setting up the ESP-based transmitter/receiver hardware, wiring your RF modules, and configuring the `mqtt.py` script using protocols along with ID codes captured via a Flipper Zero to reliably trigger your specific RF devices over the air.
