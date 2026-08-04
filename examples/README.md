@@ -2,7 +2,12 @@
 
 ![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
 
-A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button.
+![ESP32C OLED](../images/esp32c-oled.png)
+
+A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button. 
+
+Only **3 components** are needed. ESP32-C3, FS1000A (433 Mhz), and a push button. Total cost less than $5 dollars!
+
 
 ## Features
 
@@ -33,7 +38,7 @@ The Onboard LED is used as heartbeat/status indicator.
 
 ## Configuration & Setup
 
-Create a file named secret.py on your ESP32-C3 running MicroPython containing your network credentials and broker settings:
+Create a file named **secret.py** on your ESP32-C3 running MicroPython containing your network credentials and MQTT broker settings:
 
 Python
 ```
@@ -46,25 +51,26 @@ MQTT_USER = 'YOUR_MQTT_USER'
 MQTT_PASS = 'YOUR_MQTT_PASSWORD'
 ```
 
-Upload the main script alongside secret.py and the required MicroPython SSD1306 driver library.
+Upload the main scripts **mqtt.py** alongside your **secret.py** and the required MicroPython SSD1306 driver library (**sdd1306.py**) if required. 
+
+In your **main.py** (the source which is automatically run on your ESP32 booting up) - simply use the following source
+
+```
+import mqtt
+```
+
+Alternatively, you could just copy the contents of **mqtt.py** into main.py
 
 ## Node-RED Integration
 You can easily control the gateway from Node-RED by publishing payloads to the topic structure expected by the firmware: bell/{HEXID}/{type} (where {type} is either elro or princeton).
 
 ## Example Node-RED Flow
+
+![NodeRed Example Flow](../images/nodered_bells.png)
+
 Import the flow below into your Node-RED workspace to provide a dashboard button or manual inject node that triggers a remote bell command:
 
 
-![Raspberry Pi Pico](../images/pico.jpg)
-
-![ESP32C OLED](../images/esp32c-oled.png)
-
-
-
-
-## Example NodeRed Flow
-
-![NodeRed Example Flow](../images/nodered_bells.png)
 
 ```
 [
