@@ -2,7 +2,6 @@
 
 ![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
 
-![ESP32C OLED](../images/esp32c-oled.png)
 
 A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button. 
 
@@ -23,17 +22,19 @@ Only **3 components** are needed. ESP32-C3, FS1000A (433 Mhz), and a push button
 
 Connect your hardware components to the ESP32-C3 development board according to the pin mapping below:
 
+![ESP32C OLED](../images/esp32c-oled.png)
+
 
 | Component | ESP32 Pin  | Description |
 | :--- | :---: | ---: |
 | FS1000A ADATA| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
-| FS1000A Vcc| +5v	| It is OK to drive this at 5v |
-| FS1000A GND| GND ESP32	| Ground |
+| FS1000A Vcc| +5v	'V5'| It is OK to drive this at 5v |
+| FS1000A GND| GND ESP32 'GD'| Ground |
 | Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
 | OLED Display (SCL)|	GPIO 6	| I2C Clock line |
 | OLED Display (SDA)|	GPIO 5	| I2C Data line |
-| OLED Vcc | +3.3v ESP32 | **Take care to use the 3.3v line on the ESP32** |
-| OLED GND | GND ESP32 | Ground |
+| OLED Vcc | +3.3v ESP32 'V3'| **Take care to use the 3.3v line on the ESP32** |
+| OLED GND | GND ESP32 'GD'| Ground |
 
 The Onboard LED is used as heartbeat/status indicator.
 
