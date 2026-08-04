@@ -7,7 +7,7 @@ A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT comman
 
 Only **3 components** are needed. ESP32-C3, FS1000A (433 Mhz), and a push button. Total cost less than $5 dollars!
 
-**NOTE: Make sure you buy the correct version of the FS1000A - the come in several frequency flavours. Most of Bell/USB Switch Systems in the UK/EU are 433 Mhz - so I bought the 433Mhz FS1000A.**
+**NOTE: Make sure you buy the correct version of the FS1000A. They come in several frequency flavours. Most of Bell/USB Switch Systems in the UK/EU are 433 Mhz - so I bought the 433Mhz FS1000A.**
 
 ## Features
 
