@@ -65,8 +65,9 @@ MQTT_PASS = 'YOUR_MQTT_PASSWORD'
 
 To configure the **mqtt.py** script for your specific wireless devices, you will need to update the payload values with the exact raw protocol timings and data codes captured by your **Flipper Zero**. Open the script and locate the transmission definition arrays, then substitute the default values with your captured parameters—typically including the protocol ID, pulse length, and the unique binary or hexadecimal code corresponding to your specific doorbell or switch.
 
+## Do you need a FlipperZero to find these codes?
 You can see the portion of code, below - where I set the 'BELLS' array - (used by the Test button)  - with their protocols and their associated IDs.
-In theory - because these codes are effectively only 16bits (the other 16 bits are generic for each manufacture) - you could generate a brute force script and run through the 65,000 odd codes and wait for your particular bell to ring. I ran such a script and was woken up at 4 o'clock in the morning!
+In theory - because these codes are effectively only 16bits (the other 16 bits are generic for each manufacture) - you could generate a brute force script and run through the 65,000 odd codes and wait for your particular bell to ring. I ran such a script and was woken up at 4 o'clock in the morning! No FlipperZero involved!
 
 
 ```
