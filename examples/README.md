@@ -1,5 +1,7 @@
 ## ESP32-C3 MQTT to RF (433MHz) Gateway
 
+![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
+
 A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT commands to 433MHz radio frequency (RF) signals. It supports protocols commonly used for wireless doorbells and smart switches (such as Elro and Princeton PT2262/EV1527), features local status feedback via an optional SSD1306 OLED display, and includes a physical test button.
 
 ## Features
@@ -52,7 +54,6 @@ Import the flow below into your Node-RED workspace to provide a dashboard button
 ![ESP32C OLED](../images/esp32c-oled.png)
 
 
-![MQTT Gateway Board](../images/mqtt_bell_gateway.png)
 
 
 ## Example NodeRed Flow
