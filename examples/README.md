@@ -33,9 +33,12 @@ Connect your hardware components to the ESP32-C3 development board according to 
 | FS1000A ATAD| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
 | FS1000A VCC| +5v	'V5'| It is OK to drive this at 5v |
 | FS1000A GND| GND ESP32 'GD'| Ground |
-| Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
+| Test Button | GPIO 0	| Pull-up enabled on GPIO 0 see mqtt.py|
+| Test Button | GND ESP32 'GD'	| Ground  |
 
 The Onboard LED is used as heartbeat/status indicator.
+
+Make sure you have wired your **Test** button correctly - use a multi-meter to check that you are not using a common line! Easy to do! :)
 
 Add a simple antenna on your FS1000A if you don't have one attached. Ideally for the 433Mhz band, this should be a straight bit of wire - approx 17.3cm in length.
 I squashed my antenna so that the gateway could fit inside a case - causing some loss on its transmission power.
