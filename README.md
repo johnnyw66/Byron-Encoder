@@ -1,10 +1,13 @@
-# Byron-Encoder Pico and ESP32C versions.
 
-## MQTT to RF Gateway
+## MQTT to RF Gateway (Ring your Doorbells/Set your RF Switches using MQTT)
 
 If you want to bridge your home automation broker to wireless 433 MHz switches and doorbells, check out the complete [MQTT to RF Gateway Documentation](./examples/README.md#gateway). 
 
-This guide covers setting up the ESP-based transmitter/receiver hardware, wiring your RF modules, and configuring the `mqtt.py` script using raw protocol timings and codes captured via a Flipper Zero to reliably trigger your specific RF devices over the air.
+This guide covers setting up the ESP-based transmitter/receiver hardware, wiring your RF modules, and configuring the `mqtt.py` script using protocols along with ID codes captured via a Flipper Zero to reliably trigger your specific RF devices over the air.
+
+Below is a description of the various protocols and possible ways of emulating them using an ESP32/Pico and a FS1000A tx board. All for a few pounds!
+
+
 
 ## Byron-Encoder Pico and ESP32C versions.
 MicroPython (Raspberry Pi Pico) routine to encode Elro DB286A 32-bit.
