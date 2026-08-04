@@ -32,10 +32,6 @@ Connect your hardware components to the ESP32-C3 development board according to 
 | FS1000A Vcc| +5v	'V5'| It is OK to drive this at 5v |
 | FS1000A GND| GND ESP32 'GD'| Ground |
 | Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
-| OLED Display (SCL)|	GPIO 6	| I2C Clock line |
-| OLED Display (SDA)|	GPIO 5	| I2C Data line |
-| OLED Vcc | +3.3v ESP32 'V3'| **Take care to use the 3.3v line on the ESP32** |
-| OLED GND | GND ESP32 'GD'| Ground |
 
 The Onboard LED is used as heartbeat/status indicator.
 
