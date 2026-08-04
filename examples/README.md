@@ -26,11 +26,13 @@ Connect your hardware components to the ESP32-C3 development board according to 
 
 | Component | ESP32 Pin  | Description |
 | :--- | :---: | ---: |
-| FS1000A (433MHz Transmitter) | GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
+| FS1000A ADATA| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
+| FS1000A Vcc| +5v	| It is OK to drive this at 5v |
+| FS1000A GND| GND ESP32	| Ground |
 | Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
 | OLED Display (SCL)|	GPIO 6	| I2C Clock line |
 | OLED Display (SDA)|	GPIO 5	| I2C Data line |
-| OLED Vcc | +3.3v ESP32 | Take care to use the 3.3v line on the ESP32 |
+| OLED Vcc | +3.3v ESP32 | **Take care to use the 3.3v line on the ESP32** |
 | OLED GND | GND ESP32 | Ground |
 
 The Onboard LED is used as heartbeat/status indicator.
