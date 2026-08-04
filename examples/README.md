@@ -14,6 +14,7 @@ OLED Display Support: Visualizes system states, connection feedback, and trigger
 Local Test Button: Includes an onboard button input to manually cycle and test configured bells locally.
 
 ## Wiring Guide
+
 Connect your hardware components to the ESP32-C3 development board according to the pin mapping below:
 
 ## Component	Pin / Port	Description
