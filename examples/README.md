@@ -7,6 +7,7 @@ A MicroPython-powered gateway designed for the ESP32-C3 that bridges MQTT comman
 
 Only **3 components** are needed. ESP32-C3, FS1000A (433 Mhz), and a push button. Total cost less than $5 dollars!
 
+**NOTE: Make sure you buy the correct version of the FS1000A - the come in several frequency flavours. Most of Bell/USB Switch Systems in the UK/EU are 433 Mhz - so I bought the 433Mhz FS1000A.**
 
 ## Features
 
@@ -24,16 +25,21 @@ Connect your hardware components to the ESP32-C3 development board according to 
 
 
 ![ESP32C OLED](../images/esp32c-oled.png)
+![ESP32C OLED](../images/FS1000A.png)
 
 
 | Component | ESP32 Pin  | Description |
 | :--- | :---: | ---: |
-| FS1000A ADATA| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
+| FS1000A ATAD| GPIO 2	| Data pin for RF transmission (configured via FS1000A_PIN) |
 | FS1000A Vcc| +5v	'V5'| It is OK to drive this at 5v |
 | FS1000A GND| GND ESP32 'GD'| Ground |
 | Test Button	| GPIO 0	| Tactile push button to GND with internal pull-up enabled |
 
 The Onboard LED is used as heartbeat/status indicator.
+
+Add a simple antenna on your FS1000A if you don't have one attached. Ideally for the 433Mhz band, this should be a straight bit of wire - approx 17.3cm in length.
+I squashed my antenna so that the gateway could fit inside a case - causing some loss on its transmission power.
+
 
 
 ## Configuration & Setup
