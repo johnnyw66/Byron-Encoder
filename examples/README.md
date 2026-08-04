@@ -22,6 +22,7 @@ Only **3 components** are needed. ESP32-C3, FS1000A (433 Mhz), and a push button
 
 Connect your hardware components to the ESP32-C3 development board according to the pin mapping below:
 
+
 ![ESP32C OLED](../images/esp32c-oled.png)
 
 
